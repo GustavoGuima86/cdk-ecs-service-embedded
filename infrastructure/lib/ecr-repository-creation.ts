@@ -27,6 +27,10 @@ export class ECR extends Stack {
       imageScanOnPush: true,
     });
 
+    repository.addLifecycleRule({
+      maxImageCount: 5
+    })
+
     // Builds the image
     const image = new DockerImageAsset(this, `${serviceName}Image`, {
       directory: path.resolve(__dirname, '../..'), // Folder where the Docker file is hosted
